@@ -4,13 +4,13 @@ This repository is a collection of half-baked, random, and other eccentric ideas
 
 This repository is organized like such:
 
-```text
+```bash
 internal/
-	name/
-		README.md
-		_poc/
-			go.mod
-			*.go
+  name/
+    README.md
+    _poc/
+      go.mod
+      *.go
 ```
 
 The `_poc` directory, if one exists, will contain code that may or may not compile, work, run, exist, have feelings, understand the difference between right and wrong, and other worldly and metaphysical issues.
