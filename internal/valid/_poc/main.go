@@ -36,7 +36,10 @@ func main() {
 	}
 
 	ve.Range(func(key string, values []string) bool {
-		fmt.Println(key, values)
+		fmt.Printf("%s:\n", key)
+		for _, s := range values {
+			fmt.Printf("  * %q\n", s)
+		}
 		return true
 	})
 

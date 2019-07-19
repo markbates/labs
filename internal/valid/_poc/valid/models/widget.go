@@ -14,7 +14,8 @@ type Widget struct {
 func (w *Widget) BeforeSave(ctx context.Context) error {
 	c := valid.Background()
 
-	// c = checkers.StringsEqual(c, "name", w.Name, "Mark")
+	c = checkers.StringsEqual(c, "name", w.Name, "Mark")
+	c = checkers.StringsEqual(c, "name", w.Name, "Kangaroo Jack")
 	c = checkers.IntsEqual(c, "age", w.Age, 42)
 
 	c = checkers.WithFunc(c, func(cx context.Context) error {
