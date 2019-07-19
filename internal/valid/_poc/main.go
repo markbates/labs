@@ -25,15 +25,19 @@ func main() {
 		Name: "Janis",
 	}
 
-	if err := w.BeforeSave(ctx); err != nil {
-		ve, ok := err.(*valid.Errors)
-		if !ok {
-			log.Fatal(err)
-		}
-		ve.Range(func(key string, values []string) bool {
-			fmt.Println(key, values)
-			return true
-		})
+	err := w.BeforeSave(ctx)
+	if err == nil {
+		return
 	}
+
+	ve, ok := err.(*valid.Errors)
+	if !ok {
+		log.Fatal(err)
+	}
+
+	ve.Range(func(key string, values []string) bool {
+		fmt.Println(key, values)
+		return true
+	})
 
 }
