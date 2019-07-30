@@ -9,9 +9,13 @@ import (
 	"validator/valid/models"
 )
 
+type Beatle struct {
+	Name       string
+	Instrument string
+}
+
 func main() {
 	ctx := context.Background()
-
 	c := valid.Background()
 
 	c = checkers.StringsEqual(c, "letters", "b", "A")
