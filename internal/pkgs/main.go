@@ -9,7 +9,7 @@ import (
 
 func main() {
 	cfg := &packages.Config{Mode: packages.NeedFiles | packages.NeedName | packages.NeedSyntax | packages.NeedImports | packages.NeedDeps | packages.NeedTypes | packages.NeedTypesInfo}
-	pkgs, err := packages.Load(cfg, "github.com/gobuffalo/mapi")
+	pkgs, err := packages.Load(cfg, "")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "load: %v\n", err)
 		os.Exit(1)
@@ -22,24 +22,25 @@ func main() {
 	// for each package listed on the command line.
 	for _, pkg := range pkgs {
 		fmt.Println(pkg.ID)
-		// fmt.Println("ID", pkg.ID)
-		// fmt.Println("Name", pkg.Name)
-		// fmt.Println("PkgPath", pkg.PkgPath)
+		fmt.Println("ID", pkg.ID)
+		fmt.Println("Name", pkg.Name)
+		fmt.Println("PkgPath", pkg.PkgPath)
 		// fmt.Println("Errors", pkg.Errors)
-		// fmt.Println("GoFiles", pkg.GoFiles)
+		fmt.Println("GoFiles", pkg.GoFiles)
 		// fmt.Println("CompiledGoFiles", pkg.CompiledGoFiles)
 		// fmt.Println("OtherFiles", pkg.OtherFiles)
 		// fmt.Println("ExportFile", pkg.ExportFile)
 		// fmt.Println("Imports", pkg.Imports)
-		fmt.Println("Types", pkg.Types)
+		// fmt.Println("Types", pkg.Types)
 
-		s := pkg.Types.Scope()
-		s.WriteTo(os.Stdout, 0, true)
-		for _, n := range s.Names() {
-			fmt.Printf("### _poc/main.go:38 n (%T) -> %q %+v\n", n, n, n)
-			o := s.Lookup(n)
-			fmt.Printf("### _poc/main.go:40 o.String() (%T) -> %q %+v\n", o.String(), o.String(), o.String())
-		}
+		// s := pkg.Types.Scope()
+		// fmt.Printf("### main.go:37 s (%T) -> %q %+v\n", s, s, s)
+		// s.WriteTo(os.Stdout, 0, true)
+		// for _, n := range s.Names() {
+		// 	fmt.Printf("### _poc/main.go:38 n (%T) -> %q %+v\n", n, n, n)
+		// 	o := s.Lookup(n)
+		// 	fmt.Printf("### _poc/main.go:40 o.String() (%T) -> %q %+v\n", o.String(), o.String(), o.String())
+		// }
 		// fmt.Println("Fset", pkg.Fset)
 		// fmt.Println("IllTyped", pkg.IllTyped)
 		// fmt.Println("Syntax", pkg.Syntax)
