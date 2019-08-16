@@ -14,14 +14,18 @@ func Test_Render(t *testing.T) {
 		"age":  42,
 		"name": "mark",
 	}
-	rn := Plush(GoTmpl(Noop))
+	rn := Plush(GoTmpl(Noop), map[string]interface{}{
+		"foo": func() int {
+			return 3
+		},
+	})
 	b, err := rn("foo.plush.tmpl.html", []byte(html), data)
 	r.NoError(err)
 
-	r.Equal("Plush: 42 (MARK)\nGo: 42 (mark)", strings.TrimSpace(string(b)))
+	r.Equal("Plush: 42 (MARK / 3)\nGo: 42 (mark)", strings.TrimSpace(string(b)))
 }
 
 const html = `
-Plush: <%= age %> (<%= upcase(name) %>)
+Plush: <%= age %> (<%= upcase(name) %> / <%= foo() %>)
 Go: {{.age}} ({{.name}})
 `

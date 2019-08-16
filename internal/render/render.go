@@ -7,6 +7,7 @@ import (
 	"github.com/gobuffalo/helpers"
 	"github.com/gobuffalo/helpers/forms"
 	"github.com/gobuffalo/helpers/forms/bootstrap"
+	"github.com/gobuffalo/helpers/hctx"
 	"github.com/gobuffalo/plush"
 )
 
@@ -14,7 +15,7 @@ type Data map[string]interface{}
 
 type RenderFunc func(name string, body []byte, data Data) ([]byte, error)
 
-func Plush(r RenderFunc) RenderFunc {
+func Plush(r RenderFunc, help hctx.Map) RenderFunc {
 	return func(name string, body []byte, data Data) ([]byte, error) {
 		if !HasExt(name, ".plush") {
 			return r(name, body, data)
@@ -24,6 +25,10 @@ func Plush(r RenderFunc) RenderFunc {
 		h[forms.FormKey] = bootstrap.Form
 		h[forms.FormForKey] = bootstrap.FormFor
 		h["form_for"] = bootstrap.FormFor
+
+		for k, v := range help {
+			h[k] = v
+		}
 
 		for k, v := range data {
 			h[k] = v
